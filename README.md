@@ -53,8 +53,10 @@ A minimalist, editorial-style fashion e-commerce site built to showcase pixel-pe
 
 ## 🔗 Live Demo
 
-Coming soon — currently preparing deployment via [Vercel](https://vercel.com).  
-Check back for the live link.
+Experience the full site here:  
+👉 [velvra-fashion-ecom.vercel.app](https://velvra-fashion-ecom-git-35d778-mohammadhossein-zamanis-projects.vercel.app)
+
+Built with Next.js, Tailwind, and TypeScript to showcase editorial layout, luxury branding, and pixel-perfect frontend design.
 
 ---
 
