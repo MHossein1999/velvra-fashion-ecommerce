@@ -17,7 +17,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "AURELIA - Women's Autumn Winter Collection",
+  title: "VELVRA - Women's Autumn Winter Collection",
   description: "Discover elegant women's fashion for the Autumn/Winter season",
   generator: "v0.app",
 }
