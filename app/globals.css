@@ -4,11 +4,11 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to warm beige/cream color palette from reference image */
-  --background: oklch(0.92 0.015 65); /* Warm beige #E8DFD4 */
-  /* Darkened foreground color for better contrast (7:1 ratio) */
-  --foreground: oklch(0.15 0.005 40); /* Very dark brown, almost black */
-  --card: oklch(0.96 0.01 65);
+  /* Warm cream palette matched to the Euphoria reference */
+  --background: oklch(0.94 0.018 78); /* Light warm cream #F4EDE1 */
+  /* Warm near-black for editorial headings */
+  --foreground: oklch(0.21 0.009 55); /* Dark warm brown-black #2B2622 */
+  --card: oklch(0.97 0.012 78);
   /* Updated card-foreground to match new foreground */
   --card-foreground: oklch(0.15 0.005 40);
   --popover: oklch(0.96 0.01 65);
@@ -17,17 +17,17 @@
   /* Updated primary to match new foreground for consistency */
   --primary: oklch(0.15 0.005 40); /* Dark brown for primary elements */
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.48 0.06 50); /* Warm bronze #8B6F47 */
+  --secondary: oklch(0.53 0.05 65); /* Warm bronze #8C7350 */
   --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.88 0.015 65); /* Lighter beige for muted backgrounds */
-  --muted-foreground: oklch(0.45 0.01 40); /* Medium gray-brown #6B6B6B */
-  --accent: oklch(0.48 0.06 50); /* Warm bronze accent */
+  --muted: oklch(0.9 0.016 78); /* Lighter cream for muted backgrounds */
+  --muted-foreground: oklch(0.43 0.012 60); /* Medium warm brown #4A453E */
+  --accent: oklch(0.53 0.05 65); /* Warm bronze accent */
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.82 0.015 65); /* Subtle beige border */
-  --input: oklch(0.82 0.015 65);
-  --ring: oklch(0.48 0.06 50); /* Bronze ring */
+  --border: oklch(0.85 0.016 78); /* Subtle warm cream border */
+  --input: oklch(0.85 0.016 78);
+  --ring: oklch(0.53 0.05 65); /* Bronze ring */
   --chart-1: oklch(0.48 0.06 50);
   --chart-2: oklch(0.6 0.05 35);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -83,6 +83,9 @@
 
 @theme inline {
   /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  /* font-display = Playfair Display (headings), font-script = Yellowtail (logo) */
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -131,135 +134,24 @@
 }
 
 @layer utilities {
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes scale-in {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes scale-up {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* Added will-change for GPU acceleration and removed after animation */
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: opacity;
-  }
-
-  .animate-slide-in-right {
-    animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-  }
-
-  .animate-scale-up {
-    animation: scale-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-  }
-
-  /* Remove will-change after animation completes to free up GPU resources */
-  .animate-fade-in-up,
-  .animate-fade-in,
-  .animate-slide-in-right,
-  .animate-scale-in,
-  .animate-scale-up {
-    animation-fill-mode: forwards;
-  }
-
-  /* Added prefers-reduced-motion support for accessibility */
+  /*
+   * All entrance/parallax/micro-interaction motion now lives in Framer Motion
+   * (see components/motion-primitives.tsx and the section components), which is
+   * scroll-, pointer-, and action-triggered rather than firing on page load.
+   * Framer Motion's own hooks (useReducedMotion) gate that JS-driven motion.
+   *
+   * This block remains only as a CSS safety net: it neutralizes the Tailwind
+   * hover/`transition-*` utilities still used for color/scale affordances when
+   * the user prefers reduced motion.
+   */
   @media (prefers-reduced-motion: reduce) {
-    .animate-fade-in-up,
-    .animate-fade-in,
-    .animate-slide-in-right,
-    .animate-scale-in,
-    .animate-scale-up {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-
-    /* Disable parallax and hover effects for reduced motion */
-    * {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
-  }
-
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .animation-delay-300 {
-    animation-delay: 0.3s;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 0.5s;
-  }
-
-  .animation-delay-600 {
-    animation-delay: 0.6s;
-  }
-
-  .animation-delay-800 {
-    animation-delay: 0.8s;
   }
 }

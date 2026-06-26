@@ -1,57 +1,71 @@
-import Link from "next/link"
+"use client"
+
+import Image from "next/image"
 import { Card } from "@/components/ui/card"
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion-primitives"
+import { SectionBackdrop } from "@/components/editorial-backdrop"
+import { scrollToSection } from "@/lib/scroll"
 
 const categories = [
   {
     name: "Outerwear",
     image: "/elegant-wool-coat-on-hanger-autumn-colors.jpg",
-    href: "#outerwear",
+    href: "#new",
   },
   {
     name: "Knitwear",
     image: "/cashmere-sweater-folded-neutral-tones.jpg",
-    href: "#knitwear",
+    href: "#new",
   },
   {
     name: "Dresses",
-    image: "/elegant-winter-dress-on-mannequin.jpg",
-    href: "#dresses",
+    image: "/cream-silk-midi-dress-elegant-product-shot.jpg",
+    href: "#new",
   },
   {
     name: "Accessories",
     image: "/leather-handbag-and-scarf-autumn-styling.jpg",
-    href: "#accessories",
+    href: "#new",
   },
 ]
 
 export function CategoryGrid() {
   return (
-    <section className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <h2 className="font-serif text-3xl md:text-5xl font-light text-center mb-12 md:mb-16">Shop by Category</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((category, index) => (
-            <Link key={category.name} href={category.href}>
-              <Card
-                className={`group overflow-hidden border-0 shadow-none bg-transparent opacity-0 animate-fade-in-up animation-delay-${index * 200}`}
+    <section id="collections" className="relative overflow-hidden py-16 md:py-24">
+      <SectionBackdrop tone="top" />
+      <div className="container relative z-10 mx-auto px-4">
+        <Reveal as="h2" className="font-serif text-3xl md:text-5xl font-light text-center mb-12 md:mb-16">
+          Shop by Category
+        </Reveal>
+        <RevealGroup className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+          {categories.map((category) => (
+            <RevealItem key={category.name} whileHover={{ y: -6 }}>
+              <button
+                type="button"
+                onClick={() => scrollToSection(category.href)}
+                className="block w-full text-left cursor-pointer"
               >
-                <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-lg">
-                  <img
-                    src={category.image || "/placeholder.svg"}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-105 group-hover:brightness-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out" />
-                </div>
-                <div className="py-4">
-                  <h3 className="font-serif text-xl md:text-2xl font-light text-center text-foreground group-hover:text-secondary transition-all duration-300 ease-out">
-                    {category.name}
-                  </h3>
-                </div>
-              </Card>
-            </Link>
+                <Card className="group gap-0 overflow-hidden border-0 py-0 shadow-none bg-transparent">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-muted rounded-lg">
+                    <Image
+                      src={category.image || "/placeholder.svg"}
+                      alt={category.name}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                      quality={90}
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 transform-gpu"
+                    />
+                  </div>
+                  <div className="px-4 pt-3">
+                    <h3 className="font-serif text-lg md:text-xl font-normal text-center text-foreground group-hover:text-secondary transition-colors duration-300 ease-out">
+                      {category.name}
+                    </h3>
+                  </div>
+                </Card>
+              </button>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   )

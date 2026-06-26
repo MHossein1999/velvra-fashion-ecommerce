@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
+import { BrandStrip } from "@/components/brand-strip"
 import { CategoryGrid } from "@/components/category-grid"
 import { FeaturedProducts } from "@/components/featured-products"
 import { Lookbook } from "@/components/lookbook"
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <BrandStrip />
         <CategoryGrid />
         <FeaturedProducts />
         <Lookbook />
