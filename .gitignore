@@ -31,6 +31,7 @@ next-env.d.ts
 /*.jpeg
 /*.png
 
-# dev tooling + assistant memory (kept local, out of the portfolio repo)
+# dev tooling + assistant config/memory (kept local, out of the portfolio repo)
 /scripts/
 /memory/
+/CLAUDE.md

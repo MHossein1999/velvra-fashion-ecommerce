@@ -60,22 +60,22 @@ export function Footer() {
             <h4 className="font-medium mb-4">Customer Care</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/contact" className="hover:text-foreground transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/shipping-returns" className="hover:text-foreground transition-colors">
                   Shipping & Returns
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/size-guide" className="hover:text-foreground transition-colors">
                   Size Guide
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-foreground transition-colors">
+                <Link href="/faq" className="hover:text-foreground transition-colors">
                   FAQ
                 </Link>
               </li>
@@ -85,18 +85,18 @@ export function Footer() {
           <div>
             <h4 className="font-medium mb-4">Follow Us</h4>
             <div className="flex gap-4">
-              <Link href="#" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
+              </a>
+              <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
-              </Link>
+              </a>
             </div>
           </div>
         </Reveal>
@@ -104,10 +104,10 @@ export function Footer() {
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>© 2025 Velvra. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Terms of Service
             </Link>
           </div>
