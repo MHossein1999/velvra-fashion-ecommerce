@@ -8,7 +8,7 @@ branding, fluid motion, and a responsive, accessible layout.
 > local and the cart/auth/newsletter flows are simulated client-side. The focus
 > is design fidelity and interaction polish.
 
-**Live demo →** [velvra-fashion-ecom.vercel.app](https://velvra-fashion-ecom.vercel.app)
+**Live demo →** [velvra-fashion-ecommerce.vercel.app](https://velvra-fashion-ecommerce.vercel.app)
 
 ---
 

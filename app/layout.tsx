@@ -39,7 +39,7 @@ const yellowtail = Yellowtail({
   display: "swap",
 })
 
-const SITE_URL = "https://velvra-fashion-ecom.vercel.app"
+const SITE_URL = "https://velvra-fashion-ecommerce.vercel.app"
 const SITE_TITLE = "VELVRA — Women's Autumn/Winter Collection"
 const SITE_DESCRIPTION =
   "Editorial women's fashion for the cooler seasons — cozy cashmere knits, tailored wool coats, and timeless accessories."
