@@ -22,7 +22,7 @@ export function Reveal({
   y = 28,
   className,
   as = "div",
-  amount = 0.3,
+  amount = 0.15,
 }: {
   children: ReactNode
   delay?: number
@@ -40,7 +40,7 @@ export function Reveal({
       initial={reduce ? { opacity: 0 } : { opacity: 0, y }}
       whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
+      transition={{ duration: 0.55, ease: EASE, delay }}
     >
       {children}
     </MotionTag>
@@ -54,8 +54,8 @@ export function Reveal({
 export function RevealGroup({
   children,
   className,
-  stagger = 0.12,
-  amount = 0.2,
+  stagger = 0.07,
+  amount = 0.12,
   ...rest
 }: {
   children: ReactNode
@@ -97,7 +97,7 @@ export function RevealItem({
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: EASE },
+      transition: { duration: 0.5, ease: EASE },
     },
   }
   return (

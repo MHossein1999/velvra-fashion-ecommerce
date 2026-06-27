@@ -42,11 +42,12 @@ export function SectionBackdrop({
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
+      {/* Just the tonal bloom — a single cheap gradient. The blended grain layer
+          that used to sit here forced a full-section re-composite on every scroll
+          frame (mix-blend can't be cached as an isolated GPU layer), which made
+          the section reveals stutter. The hero keeps its own grain as the focal
+          texture; out here the bloom alone carries the editorial mood. */}
       <div className={cn("absolute inset-0", bloom)} />
-      <div
-        className="absolute inset-0 opacity-[0.32] mix-blend-soft-light"
-        style={{ backgroundImage: GRAIN_IMAGE }}
-      />
     </div>
   );
 }
