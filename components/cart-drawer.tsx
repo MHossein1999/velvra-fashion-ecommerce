@@ -92,7 +92,7 @@ export function CartDrawer() {
                           <button
                             type="button"
                             onClick={() => removeItem(item.id)}
-                            className="text-muted-foreground transition-colors hover:text-destructive"
+                            className="cursor-pointer text-muted-foreground transition-colors hover:text-destructive"
                             aria-label={`Remove ${item.name}`}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -103,7 +103,7 @@ export function CartDrawer() {
                             <button
                               type="button"
                               onClick={() => setQuantity(item.id, item.quantity - 1)}
-                              className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
+                              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
                               aria-label="Decrease quantity"
                             >
                               <Minus className="h-3 w-3" />
@@ -114,7 +114,7 @@ export function CartDrawer() {
                             <button
                               type="button"
                               onClick={() => setQuantity(item.id, item.quantity + 1)}
-                              className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
+                              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
                               aria-label="Increase quantity"
                             >
                               <Plus className="h-3 w-3" />
@@ -145,7 +145,7 @@ export function CartDrawer() {
               </div>
               <Button
                 size="lg"
-                className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                className="w-full cursor-pointer bg-secondary text-secondary-foreground hover:bg-secondary/90"
                 onClick={checkout}
               >
                 Checkout

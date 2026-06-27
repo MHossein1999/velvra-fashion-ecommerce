@@ -1,44 +1,45 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { AnimatePresence, motion } from "framer-motion"
-import { Search, X } from "lucide-react"
-import { useEffect, useMemo, useState } from "react"
-import { toast } from "sonner"
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { Search, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
-import { useCart } from "@/lib/cart-context"
-import { formatPrice, products } from "@/lib/products"
+import { useCart } from "@/lib/cart-context";
+import { formatPrice, products } from "@/lib/products";
 
 export function SearchOverlay({
   open,
   onClose,
 }: {
-  open: boolean
-  onClose: () => void
+  open: boolean;
+  onClose: () => void;
 }) {
-  const [query, setQuery] = useState("")
-  const { addItem, openCart } = useCart()
+  const [query, setQuery] = useState("");
+  const { addItem } = useCart();
 
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return products
+    const q = query.trim().toLowerCase();
+    if (!q) return products;
     return products.filter(
-      (p) => p.name.toLowerCase().includes(q) || p.color.toLowerCase().includes(q),
-    )
-  }, [query])
+      (p) =>
+        p.name.toLowerCase().includes(q) || p.color.toLowerCase().includes(q),
+    );
+  }, [query]);
 
   // Close on Escape; lock body scroll while open.
   useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
-    document.addEventListener("keydown", onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = "hidden"
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey)
-      document.body.style.overflow = prev
-    }
-  }, [open, onClose])
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
@@ -58,7 +59,7 @@ export function SearchOverlay({
               <button
                 type="button"
                 onClick={onClose}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
                 aria-label="Close search"
               >
                 <X className="h-6 w-6" />
@@ -71,7 +72,10 @@ export function SearchOverlay({
               transition={{ delay: 0.05 }}
               className="mx-auto mt-10 flex w-full max-w-2xl items-center gap-3 border-b border-border pb-4"
             >
-              <Search className="h-6 w-6 text-muted-foreground" strokeWidth={1.25} />
+              <Search
+                className="h-6 w-6 text-muted-foreground"
+                strokeWidth={1.25}
+              />
               <input
                 autoFocus
                 value={query}
@@ -101,19 +105,23 @@ export function SearchOverlay({
                         />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-serif text-lg font-light">{p.name}</h3>
-                        <p className="text-xs text-muted-foreground">{p.color}</p>
+                        <h3 className="font-serif text-lg font-light">
+                          {p.name}
+                        </h3>
+                        <p className="text-xs text-muted-foreground">
+                          {p.color}
+                        </p>
                       </div>
-                      <span className="text-sm tabular-nums">{formatPrice(p.price)}</span>
+                      <span className="text-sm tabular-nums">
+                        {formatPrice(p.price)}
+                      </span>
                       <button
                         type="button"
                         onClick={() => {
-                          addItem(p)
-                          toast.success(`${p.name} added to your bag`)
-                          onClose()
-                          openCart()
+                          addItem(p);
+                          toast.success(`${p.name} added to your bag`);
                         }}
-                        className="rounded-full border border-secondary px-4 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+                        className="cursor-pointer rounded-full border border-secondary px-4 py-1.5 text-xs text-secondary transition-colors hover:bg-secondary hover:text-secondary-foreground"
                       >
                         Add to Bag
                       </button>
@@ -126,5 +134,5 @@ export function SearchOverlay({
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
