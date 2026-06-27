@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, X } from "lucide-react";
+import { Heart, Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
+import { cn } from "@/lib/utils";
 import { formatPrice, products } from "@/lib/products";
 
 export function SearchOverlay({
@@ -18,6 +20,7 @@ export function SearchOverlay({
 }) {
   const [query, setQuery] = useState("");
   const { addItem } = useCart();
+  const { has, toggle } = useWishlist();
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -115,6 +118,32 @@ export function SearchOverlay({
                       <span className="text-sm tabular-nums">
                         {formatPrice(p.price)}
                       </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const saved = has(p.id);
+                          toggle(p);
+                          toast.success(
+                            saved
+                              ? `${p.name} removed from wishlist`
+                              : `${p.name} saved to wishlist`,
+                          );
+                        }}
+                        aria-label={
+                          has(p.id)
+                            ? `Remove ${p.name} from wishlist`
+                            : `Save ${p.name} to wishlist`
+                        }
+                        aria-pressed={has(p.id)}
+                        className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:text-secondary"
+                      >
+                        <Heart
+                          className={cn(
+                            "h-4 w-4 transition-colors",
+                            has(p.id) && "fill-secondary text-secondary",
+                          )}
+                        />
+                      </button>
                       <button
                         type="button"
                         onClick={() => {

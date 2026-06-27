@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Heart } from "lucide-react";
 import { toast } from "sonner";
 
 import { Card } from "@/components/ui/card";
@@ -8,16 +9,27 @@ import { Button } from "@/components/ui/button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-primitives";
 import { SectionBackdrop } from "@/components/editorial-backdrop";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
+import { cn } from "@/lib/utils";
 import { products, formatPrice, type Product } from "@/lib/products";
 
 export function FeaturedProducts() {
   const { addItem, openSearch } = useCart();
+  const { has, toggle } = useWishlist();
 
   const handleAdd = (product: Product) => {
     addItem(product);
     toast.success(`${product.name} added to your bag`, {
       description: `${product.color} · ${formatPrice(product.price)}`,
     });
+  };
+
+  const handleWishlist = (product: Product) => {
+    const saved = has(product.id);
+    toggle(product);
+    toast.success(
+      saved ? `${product.name} removed from wishlist` : `${product.name} saved to wishlist`,
+    );
   };
 
   return (
@@ -47,6 +59,24 @@ export function FeaturedProducts() {
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 cursor-pointer transform-gpu"
                     onClick={() => handleAdd(product)}
                   />
+                  <button
+                    type="button"
+                    onClick={() => handleWishlist(product)}
+                    aria-label={
+                      has(product.id)
+                        ? `Remove ${product.name} from wishlist`
+                        : `Save ${product.name} to wishlist`
+                    }
+                    aria-pressed={has(product.id)}
+                    className="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-border bg-background/80 text-foreground/80 backdrop-blur-sm transition-[color,transform] duration-150 ease-out hover:text-secondary active:scale-90"
+                  >
+                    <Heart
+                      className={cn(
+                        "h-4 w-4 transition-colors",
+                        has(product.id) && "fill-secondary text-secondary",
+                      )}
+                    />
+                  </button>
                 </div>
                 <div className="flex flex-1 flex-col p-4">
                   <h3 className="font-serif text-lg md:text-xl font-light mb-1 transition-colors duration-200 group-hover:text-secondary">

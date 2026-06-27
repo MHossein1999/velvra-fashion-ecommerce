@@ -6,14 +6,15 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
 import { scrollToSection } from "@/lib/scroll";
 import { cn } from "@/lib/utils";
 
-// "Shop" maps to the hero (#hero) and is the active department while the hero is
-// in view; the rest are the in-page sections.
+// "Shop" maps to the "Shop by Category" grid (#collections); the rest are the
+// other in-page sections. No link is active while the hero is in view.
 const NAV_LINKS = [
-  { href: "#hero", label: "Shop" },
-  { href: "#collections", label: "Collections" },
+  { href: "#collections", label: "Shop" },
+  { href: "#new", label: "Collections" },
   { href: "#lookbook", label: "Lookbook" },
   { href: "#about", label: "About" },
 ];
@@ -31,11 +32,13 @@ const iconControl = cn(
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Default to the hero so "Shop" reads as selected on first paint.
-  const [activeSection, setActiveSection] = useState<string>("#hero");
+  // No link is selected on first paint (the hero has no nav entry); the
+  // scroll-spy lights one up once a tracked section scrolls into view.
+  const [activeSection, setActiveSection] = useState<string>("");
   // Polite, screen-reader-only announcement for every icon interaction.
   const [announcement, setAnnouncement] = useState<string>("");
   const { count, pulse, openCart, openSearch } = useCart();
+  const { count: wishlistCount } = useWishlist();
 
   const announce = (msg: string) => {
     // Reset first so identical consecutive messages are still announced.
@@ -191,10 +194,24 @@ export function Header() {
             <Link
               href="/wishlist"
               onClick={() => announce("Opening your wishlist")}
-              aria-label="Wishlist"
+              aria-label={`Wishlist, ${wishlistCount} item${wishlistCount === 1 ? "" : "s"}`}
               className={cn(iconControl, "hidden sm:flex")}
             >
               <Heart className="h-5 w-5" />
+              <AnimatePresence>
+                {wishlistCount > 0 && (
+                  <motion.span
+                    key={wishlistCount}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    transition={{ type: "spring", stiffness: 600, damping: 15 }}
+                    className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-secondary px-1 text-[0.625rem] font-medium leading-none text-secondary-foreground tabular-nums"
+                  >
+                    {wishlistCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </Link>
 
             {/* Account — routes to the authentication page */}

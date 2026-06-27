@@ -6,6 +6,7 @@ import { CartDrawer } from "@/components/cart-drawer"
 import { SearchOverlay } from "@/components/search-overlay"
 import { Toaster } from "@/components/ui/sonner"
 import { CartProvider, useCart } from "@/lib/cart-context"
+import { WishlistProvider } from "@/lib/wishlist-context"
 
 /**
  * Global overlays that live above every page and read their open state from the
@@ -25,9 +26,11 @@ function GlobalOverlays() {
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <CartProvider>
-      {children}
-      <GlobalOverlays />
-      <Toaster position="bottom-right" />
+      <WishlistProvider>
+        {children}
+        <GlobalOverlays />
+        <Toaster position="bottom-right" />
+      </WishlistProvider>
     </CartProvider>
   )
 }
