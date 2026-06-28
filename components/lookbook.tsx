@@ -33,7 +33,7 @@ export function Lookbook() {
       <div className="container relative z-10 mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <Reveal className="order-2 lg:order-1">
-            <div className="max-w-xl">
+            <div className="max-w-xl mx-auto text-center lg:mx-0 lg:text-left">
               <h2 className="font-serif text-3xl md:text-5xl font-light mb-6">Autumn Essentials</h2>
               <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">
                 Embrace the changing season with our thoughtfully curated collection of timeless pieces. From luxurious
@@ -44,7 +44,7 @@ export function Lookbook() {
                 Crafted from premium materials and finished with meticulous attention to detail, our Autumn/Winter
                 collection celebrates the beauty of understated elegance.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={() => scrollToSection("#new")}

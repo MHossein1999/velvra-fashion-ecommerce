@@ -90,20 +90,20 @@ export function Header() {
         {announcement}
       </span>
 
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="mx-auto w-full px-4 sm:px-6 xl:max-w-[1280px] xl:px-4 2xl:max-w-[1536px]">
+        <div className="flex items-center justify-between gap-3 h-16 md:h-20">
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden transition-transform duration-200 active:scale-90"
+            className="md:hidden -ml-2 h-11 w-11 transition-transform duration-200 active:scale-90"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className="size-7" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu className="size-7" />
             )}
           </Button>
 
@@ -112,7 +112,7 @@ export function Header() {
                 wordmark, a spaced small-caps tagline, and a delicate brand rule
                 beneath the whole container to reinforce the masthead identity. */}
             <div className="hidden md:inline-block leading-none pb-1">
-              <div className="font-script text-[2.1rem] lg:text-[2.5rem] leading-[1.1] text-foreground">
+              <div className="font-script text-[1.95rem] lg:text-[2.5rem] leading-[1.1] text-foreground">
                 Velvra
               </div>
               <div className="mt-1 h-px w-full bg-foreground/40" />
@@ -123,10 +123,10 @@ export function Header() {
               <div className="mt-1.5 h-px w-full bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent" />
             </div>
 
-            {/* Mobile monogram - script V */}
+            {/* Mobile — full script wordmark (whole name, not just the monogram) */}
             <div className="md:hidden">
-              <div className="font-script text-[2.4rem] leading-[1.1] text-foreground">
-                V
+              <div className="font-script text-[2rem] leading-[1.1] text-foreground">
+                Velvra
               </div>
             </div>
           </Link>
@@ -143,7 +143,7 @@ export function Header() {
                   className={cn(
                     // Heading font family (Playfair) so nav typography is unified
                     // with the section headings; darker + larger for legibility.
-                    "relative font-display text-[1.05rem] lg:text-[1.18rem] font-medium uppercase tracking-[0.1em] transition-colors duration-300",
+                    "relative font-display text-[0.95rem] lg:text-[1.18rem] font-medium uppercase tracking-[0.1em] transition-colors duration-300",
                     // Underline scales on the X axis (transform) instead of
                     // animating width, so the hover never triggers layout/reflow.
                     "after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:w-full after:bg-secondary after:origin-left after:transition-transform after:duration-300 after:ease-out",
@@ -268,7 +268,7 @@ export function Header() {
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="md:hidden overflow-hidden border-t border-border"
             >
-              <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col items-center gap-4 py-4 text-center">
                 {NAV_LINKS.map((link) => (
                   <Link
                     key={link.href}
@@ -285,7 +285,7 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="mt-1 flex items-center gap-4 border-t border-border pt-4">
+                <div className="mt-1 flex items-center justify-center gap-4 border-t border-border pt-4">
                   <Link
                     href="/wishlist"
                     onClick={() => setMobileMenuOpen(false)}
@@ -307,7 +307,7 @@ export function Header() {
                     setMobileMenuOpen(false);
                     openSearch();
                   }}
-                  className="justify-start px-0 text-secondary hover:text-foreground transition-colors duration-200"
+                  className="justify-center px-0 text-secondary hover:text-foreground transition-colors duration-200"
                 >
                   <Search className="h-5 w-5 mr-2" />
                   Search

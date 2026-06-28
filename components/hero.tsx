@@ -68,17 +68,17 @@ export function Hero() {
       <div className="container relative z-10 mx-auto px-4 md:px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen py-20 lg:py-0">
         {/* Left side: Text content — nudged up slightly to feel elevated */}
         <motion.div
-          className="text-left order-2 lg:order-1 lg:-mt-14 lg:ml-6"
+          className="text-center lg:text-left order-2 lg:order-1 lg:-mt-14 lg:ml-6"
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          <h1 className="font-display font-medium text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] xl:text-[5.75rem] mb-5 md:mb-7 text-foreground leading-[1.05] tracking-tight">
+          <h1 className="font-display font-medium text-5xl sm:text-6xl md:text-6xl lg:text-[5rem] xl:text-[5.75rem] mb-5 md:mb-7 text-foreground leading-[1.05] tracking-tight">
             Elegance
             <br />
             in Every Layer
           </h1>
-          <p className="text-lg md:text-xl text-foreground/85 mb-7 md:mb-10 max-w-xl lg:max-w-lg leading-relaxed font-serif">
+          <p className="text-lg md:text-xl text-foreground/85 mb-7 md:mb-10 max-w-xl lg:max-w-lg mx-auto lg:mx-0 leading-relaxed font-serif">
             Discover our curated selection of cozy sweaters, elegant coats, and
             timeless accessories perfect for the cooler seasons. Embrace warmth
             without compromising style.

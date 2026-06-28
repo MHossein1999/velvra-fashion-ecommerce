@@ -11,7 +11,7 @@ export const LATTICE =
 /** The framing arch alcove — a lit niche in the gallery palette behind the model. */
 function Arch() {
   return (
-    <div className="absolute bottom-0 right-[1%] lg:right-[6%] h-[88%] w-[clamp(300px,44vw,600px)]">
+    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[6%] h-[88%] w-[clamp(300px,44vw,600px)]">
       {/* thin concentric outline */}
       <div className="absolute -inset-x-[3%] bottom-0 top-0 rounded-t-[999px] border border-foreground/12" />
       {/* graded fill panel */}
@@ -41,7 +41,7 @@ export function HeroBackdrop() {
           so it reads, masked to bloom on the right behind the model and fade out
           before the headline */}
       <div
-        className="absolute inset-0 opacity-[0.13] [mask-image:linear-gradient(to_left,black_0%,black_22%,transparent_70%)]"
+        className="absolute inset-0 opacity-[0.13] [mask-image:radial-gradient(75%_75%_at_50%_55%,black_0%,black_32%,transparent_75%)] lg:[mask-image:linear-gradient(to_left,black_0%,black_22%,transparent_70%)]"
         style={{ backgroundImage: LATTICE, backgroundSize: "56px 56px" }}
       />
 
@@ -55,7 +55,7 @@ export function HeroBackdrop() {
       <Arch />
 
       {/* thin radiant arc echoing the arch crown for an editorial-crest feel */}
-      <div className="absolute bottom-0 right-[1%] lg:right-[6%] h-[88%] w-[clamp(300px,44vw,600px)]">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[6%] h-[88%] w-[clamp(300px,44vw,600px)]">
         <div className="absolute -inset-x-[9%] bottom-0 top-[-5%] rounded-t-[999px] border-t border-foreground/10" />
       </div>
 

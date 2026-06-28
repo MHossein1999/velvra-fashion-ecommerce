@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer id="about" className="border-t border-border py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4">
-        <Reveal className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+        <Reveal className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12 text-center md:text-left">
           <div>
             <h3 className="font-script text-3xl font-normal mb-2 text-foreground">Velvra</h3>
             <p className="text-xs font-normal tracking-wider mb-3">Keep it classy.</p>
@@ -84,7 +84,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-medium mb-4">Follow Us</h4>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
               <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="inline-flex text-muted-foreground hover:text-foreground transition-[color,transform] duration-200 ease-out hover:-translate-y-0.5">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
 
@@ -70,15 +71,20 @@ export function FeaturedProducts() {
                 >
                   <Card className="group flex h-full flex-col gap-0 overflow-hidden border-0 py-0 shadow-none bg-background transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:shadow-xl">
                     <div className="relative aspect-[4/5] overflow-hidden bg-muted rounded-lg">
-                      <Image
-                        src={product.image || "/placeholder.svg"}
-                        alt={product.name}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                        quality={90}
-                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 cursor-pointer transform-gpu"
-                        onClick={() => handleAdd(product)}
-                      />
+                      <Link
+                        href={`/product/${product.id}`}
+                        aria-label={`View ${product.name}`}
+                        className="absolute inset-0 z-[1] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      >
+                        <Image
+                          src={product.image || "/placeholder.svg"}
+                          alt={product.name}
+                          fill
+                          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                          quality={90}
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 transform-gpu"
+                        />
+                      </Link>
                       <button
                         type="button"
                         onClick={() => handleWishlist(product)}
@@ -88,7 +94,7 @@ export function FeaturedProducts() {
                             : `Save ${product.name} to wishlist`
                         }
                         aria-pressed={has(product.id)}
-                        className="absolute right-3 top-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-border bg-background/80 text-foreground/80 backdrop-blur-sm transition-[color,transform] duration-150 ease-out hover:text-secondary active:scale-90"
+                        className="absolute right-3 top-3 z-[2] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-border bg-background/80 text-foreground/80 backdrop-blur-sm transition-[color,transform] duration-150 ease-out hover:text-secondary active:scale-90"
                       >
                         <Heart
                           className={cn(
@@ -100,7 +106,12 @@ export function FeaturedProducts() {
                     </div>
                     <div className="flex flex-1 flex-col p-4">
                       <h3 className="font-serif text-lg md:text-xl font-light mb-1 transition-colors duration-200 group-hover:text-secondary">
-                        {product.name}
+                        <Link
+                          href={`/product/${product.id}`}
+                          className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background hover:text-secondary"
+                        >
+                          {product.name}
+                        </Link>
                       </h3>
                       <p className="text-sm text-muted-foreground">
                         {product.color}

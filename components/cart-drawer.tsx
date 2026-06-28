@@ -63,7 +63,7 @@ export function CartDrawer() {
                 <AnimatePresence initial={false}>
                   {items.map((item) => (
                     <motion.li
-                      key={item.id}
+                      key={item.lineId}
                       layout
                       initial={{ opacity: 0, x: 24 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -87,11 +87,14 @@ export function CartDrawer() {
                             <h3 className="font-serif text-lg font-light leading-tight">
                               {item.name}
                             </h3>
-                            <p className="text-xs text-muted-foreground">{item.color}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {item.color}
+                              {item.size ? ` · Size ${item.size}` : ""}
+                            </p>
                           </div>
                           <button
                             type="button"
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => removeItem(item.lineId)}
                             className="cursor-pointer text-muted-foreground transition-colors hover:text-destructive"
                             aria-label={`Remove ${item.name}`}
                           >
@@ -102,7 +105,7 @@ export function CartDrawer() {
                           <div className="flex items-center gap-1 rounded-full border border-border">
                             <button
                               type="button"
-                              onClick={() => setQuantity(item.id, item.quantity - 1)}
+                              onClick={() => setQuantity(item.lineId, item.quantity - 1)}
                               className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
                               aria-label="Decrease quantity"
                             >
@@ -113,7 +116,7 @@ export function CartDrawer() {
                             </span>
                             <button
                               type="button"
-                              onClick={() => setQuantity(item.id, item.quantity + 1)}
+                              onClick={() => setQuantity(item.lineId, item.quantity + 1)}
                               className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground"
                               aria-label="Increase quantity"
                             >

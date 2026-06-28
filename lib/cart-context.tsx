@@ -12,15 +12,24 @@ import {
 } from "react"
 import type { Product } from "@/lib/products"
 
-export type CartItem = Product & { quantity: number }
+/**
+ * A line in the bag. Identified by `lineId` (product id + size) rather than the
+ * product id alone, so the same product in two sizes lives on two separate rows.
+ * `size` is optional — items added without a size (e.g. from a card) collapse to
+ * a single sizeless line.
+ */
+export type CartItem = Product & { quantity: number; size?: string; lineId: string }
+
+/** Stable line key: a product can appear once per chosen size. */
+export const lineIdFor = (id: number, size?: string) => `${id}::${size ?? ""}`
 
 type CartState = { items: CartItem[] }
 
 type CartAction =
   | { type: "hydrate"; items: CartItem[] }
-  | { type: "add"; product: Product }
-  | { type: "remove"; id: number }
-  | { type: "setQty"; id: number; quantity: number }
+  | { type: "add"; product: Product; size?: string; quantity?: number }
+  | { type: "remove"; lineId: string }
+  | { type: "setQty"; lineId: string; quantity: number }
   | { type: "clear" }
 
 function reducer(state: CartState, action: CartAction): CartState {
@@ -28,25 +37,29 @@ function reducer(state: CartState, action: CartAction): CartState {
     case "hydrate":
       return { items: action.items }
     case "add": {
-      const existing = state.items.find((i) => i.id === action.product.id)
+      const qty = Math.max(1, action.quantity ?? 1)
+      const lineId = lineIdFor(action.product.id, action.size)
+      const existing = state.items.find((i) => i.lineId === lineId)
       if (existing) {
         return {
           items: state.items.map((i) =>
-            i.id === action.product.id ? { ...i, quantity: i.quantity + 1 } : i,
+            i.lineId === lineId ? { ...i, quantity: i.quantity + qty } : i,
           ),
         }
       }
-      return { items: [...state.items, { ...action.product, quantity: 1 }] }
+      return {
+        items: [...state.items, { ...action.product, quantity: qty, size: action.size, lineId }],
+      }
     }
     case "remove":
-      return { items: state.items.filter((i) => i.id !== action.id) }
+      return { items: state.items.filter((i) => i.lineId !== action.lineId) }
     case "setQty": {
       if (action.quantity <= 0) {
-        return { items: state.items.filter((i) => i.id !== action.id) }
+        return { items: state.items.filter((i) => i.lineId !== action.lineId) }
       }
       return {
         items: state.items.map((i) =>
-          i.id === action.id ? { ...i, quantity: action.quantity } : i,
+          i.lineId === action.lineId ? { ...i, quantity: action.quantity } : i,
         ),
       }
     }
@@ -65,9 +78,9 @@ type CartContextValue = {
   pulse: number
   isOpen: boolean
   isSearchOpen: boolean
-  addItem: (product: Product) => void
-  removeItem: (id: number) => void
-  setQuantity: (id: number, quantity: number) => void
+  addItem: (product: Product, opts?: { size?: string; quantity?: number }) => void
+  removeItem: (lineId: string) => void
+  setQuantity: (lineId: string, quantity: number) => void
   clear: () => void
   openCart: () => void
   closeCart: () => void
@@ -94,7 +107,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const raw = window.localStorage.getItem(STORAGE_KEY)
       if (raw) {
         const parsed = JSON.parse(raw) as CartItem[]
-        if (Array.isArray(parsed)) dispatch({ type: "hydrate", items: parsed })
+        if (Array.isArray(parsed)) {
+          // Backfill lineId for carts persisted before sized line items existed.
+          const items = parsed.map((i) => ({
+            ...i,
+            lineId: i.lineId ?? lineIdFor(i.id, i.size),
+          }))
+          dispatch({ type: "hydrate", items })
+        }
       }
     } catch {
       // ignore malformed storage
@@ -122,12 +142,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       pulse,
       isOpen,
       isSearchOpen,
-      addItem: (product) => {
-        dispatch({ type: "add", product })
+      addItem: (product, opts) => {
+        dispatch({ type: "add", product, size: opts?.size, quantity: opts?.quantity })
         setPulse((p) => p + 1)
       },
-      removeItem: (id) => dispatch({ type: "remove", id }),
-      setQuantity: (id, quantity) => dispatch({ type: "setQty", id, quantity }),
+      removeItem: (lineId) => dispatch({ type: "remove", lineId }),
+      setQuantity: (lineId, quantity) => dispatch({ type: "setQty", lineId, quantity }),
       clear: () => dispatch({ type: "clear" }),
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
